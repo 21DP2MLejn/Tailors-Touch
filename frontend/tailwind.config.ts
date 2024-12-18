@@ -19,7 +19,7 @@ export default {
         'error': '#EF4444',
       },
       fontFamily:{
-        'sans': ['Playfair Display']
+        'sans': ['Lexend']
       },
       fontSize: {
         'h1': ['2.5rem', { lineHeight: '3rem' }],  
