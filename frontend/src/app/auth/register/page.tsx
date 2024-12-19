@@ -174,7 +174,7 @@ export default function Register() {
               </Link>
             </p>
 
-            {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+            {error && <div className="text-error text-sm mb-4">{error}</div>}
 
             <button
               type="submit"
