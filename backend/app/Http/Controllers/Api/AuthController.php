@@ -106,26 +106,4 @@ class AuthController extends Controller
         }
     }
 
-    public function userProfile(Request $request)
-    {
-        try {
-            $user = $request->user();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'User Profile Fetched Successfully',
-                'data' => [
-                    'name' => $user->name,
-                    'email' => $user->email
-                ]
-            ], 200);
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
-
 }

@@ -10,5 +10,12 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/profile', [AuthController::class, 'userProfile']);
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return response()->json([
+        'name' => $request->user()->name,
+        'lastname' => $request->user()->lastname,
+        'email' => $request->user()->email,
+    ]);
 });

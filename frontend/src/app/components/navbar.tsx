@@ -61,19 +61,20 @@ const Navbar = () => {
               >
                 Logout
               </button>
-              <Link href="/profile" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+              <Link href="/nav/profile" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth="1.5"
+                  fill="none"
                   stroke="currentColor"
+                  strokeWidth="1.5"
                   className="w-6 h-6"
                 >
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
                   <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 13.5a3.75 3.75 0 01-7.5 0m7.5 0a3.75 3.75 0 00-7.5 0m7.5 0H21a2.25 2.25 0 01-2.25 2.25m0 0H5.25m0 0A2.25 2.25 0 013 13.5h3.75m12-7.5a6 6 0 11-12 0 6 6 0 0112 0z"
+                    d="M16 16c0 2.21-1.79 4-4 4s-4-1.79-4-4c0-2.67 5.33-2.67 8 0z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
                   />
                 </svg>
               </Link>
