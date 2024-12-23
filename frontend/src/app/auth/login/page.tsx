@@ -88,9 +88,39 @@ export default function Login() {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.98 8.223C4.805 6.92 7.295 3.75 12 3.75c4.706 0 7.195 3.17 8.02 4.473a10.724 10.724 0 011.42 2.777m-1.42 2.777C19.195 17.08 16.706 20.25 12 20.25c-4.705 0-7.195-3.17-8.02-4.473a10.726 10.726 0 01-1.42-2.777m11.685-2.223a3 3 0 11-4.243 4.243 3 3 0 014.243-4.243z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.98 8.223C4.805 6.92 7.295 3.75 12 3.75c4.706 0 7.195 3.17 8.02 4.473a10.724 10.724 0 011.42 2.777m-1.42 2.777C19.195 17.08 16.706 20.25 12 20.25c-4.705 0-7.195-3.17-8.02-4.473a10.726 10.726 0 01-1.42-2.777m11.685-2.223a3 3 0 11-4.243 4.243 3 3 0 014.243-4.243z"
+                    />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
