@@ -12,9 +12,9 @@ type Product = {
 };
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]); 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,11 +29,8 @@ export default function ProductsPage() {
           throw new Error("Failed to fetch products");
         }
 
-        const result = await response.json();
-        console.log(result); // Debug the API response here
-
-        // Adjust for API response structure
-        setProducts(result.data || result); // Update based on API's structure
+        const data = (await response.json()) as Product[]; // Cast the response to Product[]
+        setProducts(data);
       } catch (err) {
         setError((err as Error).message);
       } finally {

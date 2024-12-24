@@ -24,16 +24,10 @@ const Navbar = () => {
           Tailor&apos;s Touch
         </Link>
         <nav className={`flex-1 flex items-center justify-end gap-8 md:flex ${menuOpen ? "block" : "hidden"} md:block`}>
-          <Link href="/categories/men" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-            Men
+          <Link href="/products" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+            Products
           </Link>
-          <Link href="/categories/women" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-            Women
-          </Link>
-          <Link href="/categories/accessories" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-            Accessories
-          </Link>
-          <Link href="/categories/sale" className="text-red-500 font-semibold dark:text-red-400 hover:underline">
+          <Link href="/sale" className="text-red-500 font-semibold dark:text-red-400 hover:underline">
             Sale
           </Link>
         </nav>
