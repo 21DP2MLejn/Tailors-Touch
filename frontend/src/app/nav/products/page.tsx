@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Navbar from "@/app/components/navbar";
 
 type Product = {
   id: number;
@@ -29,7 +30,7 @@ export default function ProductsPage() {
           throw new Error("Failed to fetch products");
         }
 
-        const data = (await response.json()) as Product[]; // Cast the response to Product[]
+        const data = (await response.json()) as Product[]; 
         setProducts(data);
       } catch (err) {
         setError((err as Error).message);
@@ -45,7 +46,9 @@ export default function ProductsPage() {
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
-    <div className="container mx-auto py-10">
+    <>
+      <Navbar /> 
+      <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-4">Products</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {products.map((product) => (
@@ -59,14 +62,19 @@ export default function ProductsPage() {
             <p className="text-gray-600">{product.description}</p>
             <p className="text-blue-500 font-bold mt-2">${product.price}</p>
             <Link
-              href={`/products/${product.id}`}
-              className="block mt-4 text-center bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                href={`/products/${product.id}`}
+                className="block mt-4 text-center bg-red-600 text-white py-2 rounded-md hover:bg-blue-600"
             >
-              View Details
+                View Details
             </Link>
+            <button
+              className="block mt-4 text-center bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
+              Add to cart
+            </button>
           </div>
         ))}
       </div>
     </div>
+    </>
   );
 }

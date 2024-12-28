@@ -48,12 +48,9 @@ class ProductController extends Controller
     // Fetch a single product
     public function show(Product $product)
     {
-        return response()->json([
-            'status' => true,
-            'message' => 'Product fetched successfully.',
-            'data' => $product,
-        ], 200);
+        return response()->json($product);
     }
+    
 
     // Update a product
     public function update(Request $request, Product $product)
