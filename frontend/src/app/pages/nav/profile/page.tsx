@@ -2,11 +2,13 @@
 
 import Navbar from "@/app/components/navbar";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type UserData = {
     name: string;
     lastname: string;
     email: string;
+    is_admin: boolean;
 };
 
 export default function Profile() {
@@ -26,7 +28,7 @@ export default function Profile() {
                 if (!response.ok) {
                     throw new Error("Failed to fetch user profile");
                 }
-                const jsonResponse = (await response.json()) as { name: string; email: string; lastname: string };
+                const jsonResponse = (await response.json()) as { name: string; email: string; lastname: string; is_admin: boolean };
                 setUserData(jsonResponse);
             } catch (err) {
                 setError((err as Error).message);
@@ -67,6 +69,15 @@ export default function Profile() {
                                 <p>{userData.email}</p>
                             </div>
                         </div>
+                        {userData.is_admin && (
+                            <div className="mt-6">
+                                <Link href="/pages/admin" passHref>
+                                    <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">
+                                        Admin Panel
+                                    </button>
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -74,3 +85,4 @@ export default function Profile() {
         </>
     );
 }
+

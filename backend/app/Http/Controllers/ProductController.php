@@ -27,13 +27,15 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        ]); 
 
         $data = $request->all();
 
         // Handle file upload
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            // Store the image and generate its URL
+            $imagePath = $request->file('image')->store('products', 'public');
+            $data['image'] = asset('storage/' . $imagePath);  // Use asset() to get the full URL
         }
 
         $product = Product::create($data);
@@ -46,9 +48,21 @@ class ProductController extends Controller
     }
 
     // Fetch a single product
-    public function show(Product $product)
+    public function show($id)   
     {
-        return response()->json($product);
+        $product = Product::find($id);
+        $imageUrl = Storage::url($product->image_path);
+
+    
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+    
+        return response()->json([
+            'status' => true,
+            'data' => $product,
+            'imageUrl' => $imageUrl,
+        ]);
     }
     
 
@@ -64,9 +78,7 @@ class ProductController extends Controller
 
         $data = $request->all();
 
-        // Handle file upload
         if ($request->hasFile('image')) {
-            // Delete the old image if exists
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }

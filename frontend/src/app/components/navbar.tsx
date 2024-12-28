@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Router from "next/router";
+
 
 const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,6 +17,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsAuthenticated(false);
+    Router.push("/auth/login");
   };
 
   return (
@@ -24,10 +27,10 @@ const Navbar = () => {
           Tailor&apos;s Touch
         </Link>
         <nav className={`flex-1 flex items-center justify-end gap-8 md:flex ${menuOpen ? "block" : "hidden"} md:block`}>
-          <Link href="/products" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+          <Link href="pages/nav/products" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
             Products
           </Link>
-          <Link href="/sale" className="text-red-500 font-semibold dark:text-red-400 hover:underline">
+          <Link href="pages/nav/sale" className="text-red-500 font-semibold dark:text-red-400 hover:underline">
             Sale
           </Link>
         </nav>
@@ -42,7 +45,7 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <Link href="/cart" className="relative text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+          <Link href="pages/nav/cart" className="relative text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l3.6-7H5.4M7 13L5.4 6M7 13l-2 8m12-8l2 8m-6 0a2 2 0 100-4 2 2 0 000 4zm-6 0a2 2 0 100-4 2 2 0 000 4z" />
             </svg>
@@ -55,7 +58,7 @@ const Navbar = () => {
               >
                 Logout
               </button>
-              <Link href="/nav/profile" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+              <Link href="/pages/nav/profile" className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -75,10 +78,10 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/auth/login" className="text-sm text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+              <Link href="/pages/auth/login" className="text-sm text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
                 Login
               </Link>
-              <Link href="/auth/register" className="text-sm text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+              <Link href="/pages/auth/register" className="text-sm text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
                 Register
               </Link>
             </div>
