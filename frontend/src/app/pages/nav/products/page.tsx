@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar";
+import Footer from "@/app/components/footer";
+import axios from "axios";
 
 type Product = {
   id: number;
@@ -20,29 +22,25 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/products", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
+        const authToken = localStorage.getItem("authToken");
+        const response = await axios.get("http://127.0.0.1:8000/api/products", {
+          headers: authToken
+            ? {
+                Authorization: `Bearer ${authToken}`,
+              }
+            : undefined,
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-
-        const result = await response.json();
-        
-        // Check if result contains data and map over products
-        const productsWithFullImageUrls = (result.data || result).map(
+        const productsWithFullImageUrls = response.data.data.map(
           (product: Product) => ({
             ...product,
-            image: product.image, // Directly use the image URL returned by the backend
+            image: product.image,
           })
         );
 
         setProducts(productsWithFullImageUrls);
       } catch (err) {
-        setError((err as Error).message);
+        setError("Failed to fetch products");
       } finally {
         setLoading(false);
       }
@@ -51,59 +49,73 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
+  const addToCart = async (productId: number) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      await axios.post(`http://127.0.0.1:8000/api/cart`, 
+        { product_id: productId, quantity: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      alert("Product added to cart successfully!");
+    } catch (err) {
+      setError("Failed to add product to cart");
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-medium">Loading products...</p>
+      <div className="flex items-center justify-center h-screen bg-gray-50">
+        <p className="text-lg font-light text-gray-600">Loading collection...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-red-500 text-lg font-medium">{error}</p>
+      <div className="flex items-center justify-center h-screen bg-gray-50">
+        <p className="text-lg font-light text-red-400">{error}</p>
       </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="container mx-auto py-10">
-        <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
-          Our Products
+      <div className="container mx-auto py-16 px-4">
+        <h1 className="text-4xl font-extralight mb-12 text-center text-gray-800">
+          Our Collection
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white p-6 shadow-lg rounded-lg transition-transform transform hover:-translate-y-2 hover:shadow-xl"
-            >
-              <div className="relative h-56 w-full mb-4">
+            <div key={product.id} className="group">
+              <div className="relative aspect-w-1 aspect-h-1 mb-4">
                 <img
-                  src={product.image} // Directly use the image URL provided by backend
+                  src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover rounded-t-lg"
+                  className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
               </div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                {product.name}
-              </h2>
-              <p className="text-gray-600 text-sm mb-4">
+              <h2 className="text-lg font-light text-gray-800 mb-1">{product.name}</h2>
+              <p className="text-sm text-gray-500 mb-2">
                 {product.description.substring(0, 60)}...
               </p>
-              <p className="text-blue-600 font-bold text-lg mb-4">
-                ${product.price}
-              </p>
+              <p className="text-gray-700 font-light mb-4">${product.price}</p>
               <div className="flex space-x-4">
                 <Link
-                  href={`/pages/nav/products/${product.id}`} // Adjust this according to your Next.js routing
-                  className="flex-1 text-center bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+                  href={`/pages/nav/products/${product.id}`}
+                  className="flex-1 text-center border border-gray-300 text-gray-600 py-2 px-4 hover:bg-gray-100 transition duration-300"
                 >
                   View Details
                 </Link>
-                <button className="flex-1 bg-green-500 text-white py-2 rounded-md hover:bg-green-600">
+                <button
+                  className="flex-1 bg-gray-900 text-white py-2 px-4 hover:bg-gray-800 transition duration-300"
+                  onClick={() => addToCart(product.id)}
+                >
                   Add to Cart
                 </button>
               </div>
@@ -111,6 +123,7 @@ export default function ProductsPage() {
           ))}
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }

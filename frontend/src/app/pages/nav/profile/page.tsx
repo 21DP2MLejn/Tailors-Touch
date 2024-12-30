@@ -116,7 +116,7 @@ export default function Profile() {
     }
 
     if (error) {
-        return <p className="text-red-500">Error: {error}</p>;
+        return <p className="text-red-500 bg-slate-50">Error: {error}</p>;
     }
 
     if (!userData) {
@@ -126,7 +126,7 @@ export default function Profile() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen py-10 px-4">
+            <main className="min-h-screen py-10 px-4 bg-slate-50">
                 <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
                     {loading && <p>Loading your profile...</p>}
                     {error && <p className="text-red-500">Error: {error}</p>}

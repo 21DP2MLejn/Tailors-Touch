@@ -33,6 +33,9 @@ const Navbar = () => {
           <Link href="pages/nav/sale" className="text-gray-600 hover:text-gray-800 transition duration-300">
             Sale
           </Link>
+          <Link href="pages/nav/about" className="text-gray-600 hover:text-gray-800 transition duration-300">
+            About
+          </Link>
         </nav>
         <div className="flex items-center gap-6">
           <div className="relative hidden md:block">

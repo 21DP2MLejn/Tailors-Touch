@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 type Product = {
   id: number;
   name: string;
@@ -29,7 +30,7 @@ const ProductList: React.FC<ProductListProps> = ({ products, onEdit, onDelete })
         {products.map(product => (
           <tr key={product.id} className="border-t">
             <td className="p-3">{product.name}</td>
-            <td className="p-3">${product.price.toFixed(2)}</td>
+            <td className="p-3">${Math.round(product.price * 100) / 100}</td>
             <td className="p-3">{product.description.substring(0, 50)}...</td>
             <td className="p-3">
               <button 

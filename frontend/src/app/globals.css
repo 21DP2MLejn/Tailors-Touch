@@ -3,15 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --beige: #DDD0C8;
-  --dark-gray: #171717;
-}
 
 
 body {
-  color: var(--dark-gray);
-  background: var(--beige);
   font-family: 'Lexend', sans-serif;
   scroll-behavior: smooth;
 }

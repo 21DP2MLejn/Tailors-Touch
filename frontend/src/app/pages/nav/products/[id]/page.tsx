@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/app/components/navbar";
+import Footer from "@/app/components/footer";
+import axios from "axios";
 
 type Product = {
   id: number;
@@ -22,26 +24,22 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/products/${params.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
+        const authToken = localStorage.getItem("authToken");
+        const response = await axios.get(`http://127.0.0.1:8000/api/products/${params.id}`, {
+          headers: authToken
+            ? {
+                Authorization: `Bearer ${authToken}`,
+              }
+            : undefined,
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch product details");
-        }
-
-        const result = await response.json();
-        
-        // Check if result contains data and set the product
-        const productData = result.data || result;
+        const productData = response.data.data;
         setProduct({
           ...productData,
-          image: productData.image, // Directly use the image URL returned by the backend
+          image: productData.image,
         });
       } catch (err) {
-        setError((err as Error).message);
+        setError("Failed to fetch product details");
       } finally {
         setLoading(false);
       }
@@ -52,67 +50,88 @@ export default function ProductDetailsPage() {
     }
   }, [params.id]);
 
+  const addToCart = async () => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      await axios.post(`http://127.0.0.1:8000/api/cart`, 
+        { product_id: product?.id, quantity: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      alert("Product added to cart successfully!");
+    } catch (err) {
+      setError("Failed to add product to cart");
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-medium">Loading product details...</p>
+      <div className="flex items-center justify-center h-screen bg-slate-50">
+        <p className="text-lg font-light text-gray-600">Loading product details...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-red-500 text-lg font-medium">{error}</p>
+      <div className="flex items-center justify-center h-screen bg-slate-50">
+        <p className="text-lg font-light text-red-400">{error}</p>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-medium">Product not found</p>
+      <div className="flex items-center justify-center h-screen bg-slate-50">
+        <p className="text-lg font-light text-gray-600">Product not found</p>
       </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-slate-50">
       <Navbar />
-      <div className="container mx-auto py-10 px-4">
-        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-          <div className="md:flex">
-            <div className="md:flex-shrink-0">
+      <div className="container mx-auto py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="md:flex md:space-x-8">
+            <div className="md:w-1/2 mb-8 md:mb-0">
               <img
                 src={product.image}
                 alt={product.name}
-                className="h-64 w-full object-cover md:w-64"
+                className="w-full h-auto object-cover"
               />
             </div>
-            <div className="p-8">
-              <h1 className="text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
-              <p className="text-gray-600 text-lg mb-4">{product.description}</p>
-              <p className="text-blue-600 font-bold text-2xl mb-6">${product.price}</p>
-              <div className="flex space-x-4">
-                <button className="flex-1 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+            <div className="md:w-1/2">
+              <h1 className="text-3xl font-light text-gray-800 mb-4">{product.name}</h1>
+              <p className="text-gray-600 text-lg mb-6">{product.description}</p>
+              <p className="text-gray-800 font-light text-2xl mb-8">${product.price}</p>
+              <div className="space-y-4">
+                <button
+                  className="w-full bg-gray-900 text-white py-3 px-6 hover:bg-gray-800 transition duration-300"
+                  onClick={addToCart}
+                >
                   Add to Cart
                 </button>
-                <button className="flex-1 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300">
-                  Buy Now
+                <button className="w-full border border-gray-300 text-gray-600 py-3 px-6 hover:bg-gray-100 transition duration-300">
+                  Add to Wishlist
                 </button>
               </div>
             </div>
           </div>
-        </div>
-        <div className="mt-8 text-center">
-          <Link
-            href="/pages/nav/products"
-            className="text-blue-500 hover:text-blue-600 transition duration-300"
-          >
-            ← Back to Products
-          </Link>
+          <div className="mt-12 text-center">
+            <Link
+              href="/pages/nav/products"
+              className="text-gray-600 hover:text-gray-800 transition duration-300"
+            >
+              ← Back to Collection
+            </Link>
+          </div>
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
