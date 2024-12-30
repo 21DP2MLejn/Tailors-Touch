@@ -88,14 +88,38 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+        public function logout(Request $request)
+        {
+            try {
+                $request->user()->tokens()->delete();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User Logged Out Successfully'
+                ], 200);
+
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage()
+                ], 500);
+            }
+        }
+
+        public function userProfile(Request $request)
     {
         try {
-            $request->user()->tokens()->delete();
+            $user = $request->user(); 
 
             return response()->json([
                 'status' => true,
-                'message' => 'User Logged Out Successfully'
+                'message' => 'User Profile Fetched Successfully',
+                'data' => [
+                    'name' => $user->name,
+                    'lastname' => $user->lastname,
+                    'email' => $user->email,
+                    'is_admin' => $user->is_admin,
+                ]
             ], 200);
 
         } catch (\Throwable $th) {
@@ -106,29 +130,81 @@ class AuthController extends Controller
         }
     }
 
-    public function userProfile(Request $request)
-{
-    try {
-        $user = $request->user(); 
-
-        return response()->json([
-            'status' => true,
-            'message' => 'User Profile Fetched Successfully',
-            'data' => [
-                'name' => $user->name,
-                'lastname' => $user->lastname,
-                'email' => $user->email,
-                'is_admin' => $user->is_admin,
-            ]
-        ], 200);
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage()
-        ], 500);
+    public function editprofile(Request $request)
+    {
+        try {
+            $user = $request->user();
+    
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+    
+            $validated = $request->validate([
+                'name' => 'sometimes|string|max:255', 
+                'lastname' => 'sometimes|string|max:255', 
+                'email' => 'sometimes|email|max:255|unique:users,email,' . $user->id, 
+            ]);
+    
+            if (isset($validated['name'])) {
+                $user->name = $validated['name'];
+            }
+    
+            if (isset($validated['lastname'])) {
+                $user->lastname = $validated['lastname'];
+            }
+    
+            if (isset($validated['email'])) {
+                $user->email = $validated['email'];
+            }
+    
+            $user->save();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'User Profile Updated Successfully',
+                'data' => [
+                    'name' => $user->name,
+                    'lastname' => $user->lastname,
+                    'email' => $user->email,
+                ]
+            ], 200);
+            
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
     }
-}
+    
 
-
+    public function deleteprofile(Request $request)
+    {
+        try {
+            $user = $request->user();
+    
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found',
+                ], 404);
+            }
+    
+            $user->delete();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'User Profile Deleted Successfully',
+            ], 200);
+    
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
 }
