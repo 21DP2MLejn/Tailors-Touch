@@ -134,7 +134,7 @@ export default function Login() {
           {error && <p className="text-red-500 mt-2">{error}</p>}
           <p className="mt-4">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/register" className="text-blue-500 hover:underline">
+            <Link href="/pages/auth/register" className="text-blue-500 hover:underline">
               Register
             </Link>
           </p>

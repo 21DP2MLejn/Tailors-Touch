@@ -40,7 +40,7 @@ export default function Register() {
       });
 
       if (response.status === 200) {
-        router.push("/auth/login");
+        router.push("/pages/auth/login");
         console.log("Registration successful:", response.data);
       } else {
         setError("Error: " + (response.data.message || "Something went wrong"));
@@ -169,7 +169,7 @@ export default function Register() {
 
             <p className="text-sm mb-4">
               Already have an account?{" "}
-              <Link href="/auth/login" className="text-blue-500 underline">
+              <Link href="/pages/auth/login" className="text-blue-500 underline">
                 Login
               </Link>
             </p>
