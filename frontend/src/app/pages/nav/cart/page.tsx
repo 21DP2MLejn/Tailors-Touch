@@ -5,6 +5,7 @@ import Navbar from "@/app/components/navbar";
 import Link from "next/link";
 import Footer from "@/app/components/footer";
 import axios from "axios";
+import Image from 'next/image';
 
 type CartItem = {
   id: number;

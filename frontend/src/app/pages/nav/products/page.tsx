@@ -6,6 +6,7 @@ import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
 import axios from "axios";
 import { addToCart } from '@/app/utils/cart';
+import Image from 'next/image'
 
 type Product = {
     id: number;
@@ -86,7 +87,7 @@ export default function ProductsPage() {
                     {products.map((product) => (
                         <div key={product.id} className="group">
                             <div className="relative aspect-w-1 aspect-h-1 mb-4">
-                                <img
+                                <Image
                                     src={product.image}
                                     alt={product.name}
                                     className="w-full h-full object-cover"

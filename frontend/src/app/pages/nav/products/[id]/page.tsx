@@ -7,6 +7,7 @@ import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
 import axios from "axios";
 import { addToCart } from '@/app/utils/cart';
+import Image from 'next/image'
 
 type Product = {
     id: number;
@@ -95,7 +96,7 @@ export default function ProductDetailsPage() {
                 <div className="max-w-6xl mx-auto">
                     <div className="md:flex md:space-x-8">
                         <div className="md:w-1/2 mb-8 md:mb-0">
-                            <img
+                            <Image
                                 src={product.image}
                                 alt={product.name}
                                 className="w-full h-auto object-cover"
