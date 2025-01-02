@@ -30,10 +30,10 @@ const Navbar = () => {
           <Link href="/pages/nav/products" className="text-gray-600 hover:text-gray-800 transition duration-300">
             Collection
           </Link>
-          <Link href="pages/nav/sale" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/sale" className="text-gray-600 hover:text-gray-800 transition duration-300">
             Sale
           </Link>
-          <Link href="pages/nav/about" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/about" className="text-gray-600 hover:text-gray-800 transition duration-300">
             About
           </Link>
         </nav>
@@ -48,21 +48,29 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <Link href="pages/nav/cart" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/cart" className="text-gray-600 hover:text-gray-800 transition duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
             </svg>
           </Link>
+          <Link href="/pages/nav/wishlist" className="text-gray-600 hover:text-gray-800 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                 stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round"
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </Link>
           {isAuthenticated ? (
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handleLogout}
-                className="text-sm text-gray-600 hover:text-gray-800 transition duration-300"
-              >
-                Logout
-              </button>
-              <Link href="/pages/nav/profile" className="text-gray-600 hover:text-gray-800 transition duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+              <div className="flex items-center gap-4">
+                <button
+                    onClick={handleLogout}
+                    className="text-sm text-gray-600 hover:text-gray-800 transition duration-300"
+                >
+                  Logout
+                </button>
+                <Link href="/pages/nav/profile" className="text-gray-600 hover:text-gray-800 transition duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                       stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                 </svg>
               </Link>
@@ -74,8 +82,6 @@ const Navbar = () => {
               </Link>
               <Link href="/pages/auth/register" className="text-sm text-gray-600 hover:text-gray-800 transition duration-300">
                 Register
-              </Link>
-              <Link href={"/pages/nav/about"} className="text-gray-600 hover:text-gray-800 transition duration-300">
               </Link>
             </div>
           )}

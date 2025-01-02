@@ -163,7 +163,7 @@ export default function AdminPage() {
         onDelete={handleDeleteProduct}
       />
       <div className="mt-4">
-        <Link href="/pages/admin/create-product" className="bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
+        <Link href="/pages/create-product" className="bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
           Create Product
         </Link>
       </div>

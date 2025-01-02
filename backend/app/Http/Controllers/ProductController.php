@@ -27,7 +27,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]); 
+        ]);
 
         $data = $request->all();
 
@@ -48,52 +48,72 @@ class ProductController extends Controller
     }
 
     // Fetch a single product
-    public function show($id)   
+    public function show($id)
     {
         $product = Product::find($id);
         $imageUrl = Storage::url($product->image_path);
 
-    
+
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-    
+
         return response()->json([
             'status' => true,
             'data' => $product,
             'imageUrl' => $imageUrl,
         ]);
     }
-    
+
 
     // Update a product
-    public function update(Request $request, Product $product)
+public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        try {
+            $product = Product::findOrFail($id);
 
-        $data = $request->all();
+            $request->validate([
+                'name' => 'sometimes|string|max:255',
+                'price' => 'sometimes|numeric|min:0',
+                'description' => 'sometimes|string',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            ]);
 
-        if ($request->hasFile('image')) {
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+            if ($request->has('name')) {
+                $product->name = $request->name;
             }
 
-            $data['image'] = $request->file('image')->store('products', 'public');
+            if ($request->has('price')) {
+                $product->price = $request->price;
+            }
+
+            if ($request->has('description')) {
+                $product->description = $request->description;
+            }
+
+            if ($request->hasFile('image')) {
+                if ($product->image) {
+                    Storage::disk('public')->delete($product->image);
+                }
+                $imagePath = $request->file('image')->store('products', 'public');
+                $product->image = asset('storage/' . $imagePath);
+            }
+
+            $product->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Product updated successfully.',
+                'data' => $product,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
         }
-
-        $product->update($data);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Product updated successfully.',
-            'data' => $product,
-        ], 200);
     }
+
 
     // Delete a product
     public function destroy(Product $product)
