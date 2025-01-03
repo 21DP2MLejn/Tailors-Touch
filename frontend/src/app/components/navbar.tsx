@@ -30,9 +30,9 @@ const Navbar = () => {
           <Link href="/pages/nav/products" className=" hover:text-accent transition duration-300">
             Collection
           </Link>
-          <Link href="/pages/nav/sale" className=" hover:text-accent transition duration-300">
-            Sale
-          </Link>
+          {/*<Link href="/pages/nav/sale" className=" hover:text-accent transition duration-300">*/}
+          {/*  Sale*/}
+          {/*</Link>*/}
           <Link href="/pages/nav/about" className=" hover:text-accent transition duration-300">
             About
           </Link>
