@@ -8,36 +8,17 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     // Fetch all products
-    public function index(Request $request)
+    public function index()
     {
-        $query = Product::query();
-
-        if ($request->has('category') && $request->category !== 'all') {
-            $query->where('category', $request->category);
-        }
-
-        if ($request->has('minPrice')) {
-            $query->where('price', '>=', $request->minPrice);
-        }
-
-        if ($request->has('maxPrice')) {
-            $query->where('price', '<=', $request->maxPrice);
-        }
-
-        if ($request->has('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        $products = $query->get();
+        $products = Product::all();
 
         return response()->json([
             'status' => true,
-            'data' => $products
-        ]);
+            'message' => 'Products fetched successfully.',
+            'data' => $products,
+        ], 200);
     }
+
 
     // Create a new product
     public function store(Request $request)
@@ -45,7 +26,6 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'category' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -95,7 +75,6 @@ public function update(Request $request, $id)
             $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'price' => 'sometimes|numeric|min:0',
-                'category' => 'sometimes|string',
                 'description' => 'sometimes|string',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);
