@@ -68,7 +68,7 @@ export default function ProductDetailsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-screen">
-                <p className="text-lg font-light text-gray-600">Loading product details...</p>
+                <p className="text-h3 font-light">Loading product details...</p>
             </div>
         );
     }
@@ -84,7 +84,7 @@ export default function ProductDetailsPage() {
     if (!product) {
         return (
             <div className="flex items-center justify-center h-screen">
-                <p className="text-lg font-light text-gray-600">Product not found</p>
+                <p className="text-lg font-light">Product not found</p>
             </div>
         );
     }
@@ -99,21 +99,23 @@ export default function ProductDetailsPage() {
                             <Image
                                 src={product.image}
                                 alt={product.name}
+                                width={200}
+                                height={200}
                                 className="w-full h-auto object-cover"
                             />
                         </div>
                         <div className="md:w-1/2">
-                            <h1 className="text-3xl font-light text-gray-800 mb-4">{product.name}</h1>
-                            <p className="text-gray-600 text-lg mb-6">{product.description}</p>
-                            <p className="text-gray-800 font-light text-2xl mb-8">${product.price}</p>
+                            <h1 className="text-3xl font-light mb-4">{product.name}</h1>
+                            <p className=" text-lg mb-6">{product.description}</p>
+                            <p className=" font-light text-2xl mb-8">${product.price}</p>
                             <div className="space-y-4">
                                 <button
                                     onClick={handleAddToCart}
-                                    className="w-full bg-gray-900 text-white py-3 px-6 hover:bg-gray-800 transition duration-300"
+                                    className="w-full bg-secondary border border-primary py-3 px-6 hover:bg-accent transition duration-300"
                                 >
                                     Add to Cart
                                 </button>
-                                <button className="w-full border border-gray-300 text-gray-600 py-3 px-6 hover:bg-gray-100 transition duration-300">
+                                <button className="w-full border border-primary py-3 px-6 hover:bg-accent transition duration-300">
                                     Add to Wishlist
                                 </button>
                             </div>
@@ -122,7 +124,7 @@ export default function ProductDetailsPage() {
                     <div className="mt-12 text-center">
                         <Link
                             href="/pages/nav/products"
-                            className="text-gray-600 hover:text-gray-800 transition duration-300"
+                            className=" hover:text-primary transition duration-300"
                         >
                             ← Back to Collection
                         </Link>

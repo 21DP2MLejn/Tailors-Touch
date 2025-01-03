@@ -10,8 +10,11 @@ export default {
     extend: {
       colors: {
         //main
-        'beige': '#DDD0C8',
-        'dark-gray': '#323232',
+        primary: '#8E7B68',
+        secondary: '#C5A1A0',
+        accent: '#FDF8F4',
+        background: '#F5EFE6',
+        text: '#3D2C28',
 
         //other
         'success': '#34D399',
@@ -24,7 +27,7 @@ export default {
       fontSize: {
         'h1': ['2.5rem', { lineHeight: '3rem' }],  
         'h2': ['2rem', { lineHeight: '2.5rem' }],  
-        'h3': ['1.75rem', { lineHeight: '2.25rem' }],
+        'h3': ['1.50rem', { lineHeight: '2rem' }],
         'p': ['1rem', { lineHeight: '1.6rem' }],      
         'a': ['1rem', { lineHeight: '1.6rem' }],      
         'li': ['1rem', { lineHeight: '1.6rem' }],     

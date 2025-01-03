@@ -47,17 +47,17 @@ export default function CreateProduct() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <div className="container mx-auto py-16 px-4">
-        <h1 className="text-3xl font-light mb-8 text-gray-800">Create a New Product</h1>
-        <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 className="text-h1 font-light mb-8">Create a New Product</h1>
+        <div className="max-w-md mx-auto border border-secondary bg-background p-8 rounded-lg drop-shadow-lg">
           {error && <p className="text-red-500 mb-4">{error}</p>}
           {success && <p className="text-green-500 mb-4">{success}</p>}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="name" className="block text-sm font-medium">
                 Name
               </label>
               <input
@@ -66,12 +66,12 @@ export default function CreateProduct() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+                className="mt-1 block w-full border border-secondary rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
               />
             </div>
 
             <div>
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="price" className="block text-sm font-medium ">
                 Price
               </label>
               <input
@@ -80,50 +80,53 @@ export default function CreateProduct() {
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 required
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+                className="mt-1 block w-full border border-secondary rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="description" className="block text-sm font-medium">
                 Description
               </label>
               <textarea
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+                className="mt-1 block w-full border border-secondary rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-secondary focus:border-secondary sm:text-sm"
                 rows={4}
               />
             </div>
 
             <div>
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="image" className="block text-sm font-medium">
                 Image
               </label>
               <input
                 type="file"
                 id="image"
                 onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
-                className="mt-1 block w-full text-sm text-gray-500
+                className="mt-1 block w-full text-sm
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-md file:border-0
                 file:text-sm file:font-medium
-                file:bg-gray-50 file:text-gray-700
-                hover:file:bg-gray-100"
+                file:bg-background file:text-text
+                file:border file:border-secondary
+                transition duration-300
+                file:cursor-pointer duration-200
+                hover:file:bg-accent"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
+              className="w-full border border-secondary bg-primary py-2 px-4 rounded-md hover:bg-accent focus:outline-none focus:ring-2 transition duration-300  focus:ring-secondary focus:ring-offset-2"
             >
               Create Product
             </button>
           </form>
         </div>
         <div className="mt-8 text-center">
-          <Link href="/pages/admin" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/admin" className=" hover:text-primary transition duration-300">
             ← Back to Admin Dashboard
           </Link>
         </div>

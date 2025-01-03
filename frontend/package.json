@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/react-select": "^5.0.1",
     "axios": "^1.7.9",
     "mathjs": "^14.0.1",
     "next": "15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-select": "^5.9.0",
+    "react-select-country-list": "^2.2.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

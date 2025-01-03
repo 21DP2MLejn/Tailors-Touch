@@ -83,8 +83,8 @@ export default function AdminPage() {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-xl font-light text-gray-800">You are not authorized to view this page.</p>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl font-light">You are not authorized to view this page.</p>
       </div>
     );
   }
@@ -135,35 +135,35 @@ export default function AdminPage() {
   };
 
   const renderDashboard = () => (
-    <div>
-      <h2 className="text-2xl font-light mb-4">Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-light mb-2">Total Products</h3>
-          <p className="text-2xl">{products.length}</p>
+    <div className="">
+      <h2 className="text-h2 font-light mb-4">Dashboard</h2>
+      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="border border-secondary p-4 rounded-lg shadow-lg">
+          <h3 className="text-h3 font-light mb-2">Total Products</h3>
+          <p className="text-h3">{products.length}</p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-light mb-2">Total Orders</h3>
-          <p className="text-2xl">{orders.length}</p>
+        <div className="border border-secondary p-4 rounded-lg shadow-lg">
+          <h3 className="text-h3 font-light mb-2">Total Orders</h3>
+          <p className="text-h3">{orders.length}</p>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-light mb-2">Total Revenue</h3>
-          <p className="text-2xl">${orders.reduce((sum, order) => sum + order.total, 0).toFixed(2)}</p>
+        <div className="border border-secondary p-4 rounded-lg shadow-lg">
+          <h3 className="text-h3 font-light mb-2">Total Revenue</h3>
+          <p className="text-h3">${orders.reduce((sum, order) => sum + order.total, 0).toFixed(2)}</p>
         </div>
       </div>
     </div>
   );
 
   const renderProducts = () => (
-    <div>
-      <h2 className="text-2xl font-light mb-4">Products</h2>
+    <div className="bg-background">
+      <h2 className="text-h2 font-light mb-4">Products</h2>
       <ProductList
         products={products}
         onEdit={handleEditProduct}
         onDelete={handleDeleteProduct}
       />
       <div className="mt-4">
-        <Link href="/pages/create-product" className="bg-gray-900 text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
+        <Link href="/pages/create-product" className="bg-primary border border-secondary py-2 px-4 rounded-md hover:bg-accent transition duration-300">
           Create Product
         </Link>
       </div>
@@ -172,25 +172,25 @@ export default function AdminPage() {
 
   const renderOrders = () => (
     <div>
-      <h2 className="text-2xl font-light mb-4">Orders</h2>
-      <table className="w-full bg-white shadow rounded-lg">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-3 text-left">Order ID</th>
-            <th className="p-3 text-left">Customer</th>
-            <th className="p-3 text-left">Total</th>
-            <th className="p-3 text-left">Status</th>
-            <th className="p-3 text-left">Actions</th>
+      <h2 className="text-h2 font-light mb-4">Orders</h2>
+      <table className="w-full shadow rounded-lg border border-secondary">
+        <thead className="border border-secondary">
+          <tr className="bg-background border border-secondary">
+            <th className="border border-secondary p-3 text-left">Order ID</th>
+            <th className="border border-secondary p-3 text-left">Customer</th>
+            <th className="border border-secondary p-3 text-left">Total</th>
+            <th className="border border-secondary p-3 text-left">Status</th>
+            <th className="border border-secondary p-3 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {orders.map(order => (
-            <tr key={order.id} className="border-t">
-              <td className="p-3">{order.id}</td>
-              <td className="p-3">{order.customerName}</td>
-              <td className="p-3">${order.total.toFixed(2)}</td>
-              <td className="p-3">{order.status}</td>
-              <td className="p-3">
+            <tr key={order.id} className="border border-secondary">
+              <td className="border border-secondary p-3">{order.id}</td>
+              <td className="border border-secondary p-3">{order.customerName}</td>
+              <td className="border border-secondary p-3">${order.total.toFixed(2)}</td>
+              <td className="border border-secondary p-3">{order.status}</td>
+              <td className="border border-secondary p-3">
                 <button className="text-blue-500 hover:text-blue-700 mr-2">View</button>
                 <button className="text-green-500 hover:text-green-700">Update Status</button>
               </td>
@@ -202,25 +202,25 @@ export default function AdminPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <Navbar />
       <div className="container mx-auto py-16 px-4">
-        <h1 className="text-3xl font-light mb-8 text-gray-800">Admin Dashboard</h1>
+        <h1 className="text-h1 font-light mb-8">Admin Dashboard</h1>
         <div className="flex mb-8">
           <button
-            className={`mr-4 ${activeTab === "dashboard" ? "text-gray-800 border-b-2 border-gray-800" : "text-gray-600"}`}
+            className={`mr-4 ${activeTab === "dashboard" ? " border-b-2 border-secondary" : ""}`}
             onClick={() => setActiveTab("dashboard")}
           >
             Dashboard
           </button>
           <button
-            className={`mr-4 ${activeTab === "products" ? "text-gray-800 border-b-2 border-gray-800" : "text-gray-600"}`}
+            className={`mr-4 ${activeTab === "products" ? "border-b-2 border-secondary" : ""}`}
             onClick={() => setActiveTab("products")}
           >
             Products
           </button>
           <button
-            className={`mr-4 ${activeTab === "orders" ? "text-gray-800 border-b-2 border-gray-800" : "text-gray-600"}`}
+            className={`mr-4 ${activeTab === "orders" ? "border-b-2 border-secondary" : ""}`}
             onClick={() => setActiveTab("orders")}
           >
             Orders

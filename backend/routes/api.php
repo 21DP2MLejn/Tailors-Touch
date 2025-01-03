@@ -22,6 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         'name' => $request->user()->name,
         'lastname' => $request->user()->lastname,
         'email' => $request->user()->email,
+        'phone' => $request->user()->phone,
+        'country' => $request->user()->country,
+        'city' => $request->user()->city,
+        'postalcode' => $request->user()->postalcode,
+        'address' => $request->user()->address,
         'is_admin' => $request->user()->is_admin,
     ]);
 });

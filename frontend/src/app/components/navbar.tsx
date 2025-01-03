@@ -21,19 +21,19 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-primary border transition duration-300 border-secondary drop-shadow-lg sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between p-4">
-        <Link href="/" className="text-2xl font-light text-gray-800">
+        <Link href="/" className="text-2xl font-light">
           Tailor&apos;s Touch
         </Link>
         <nav className={`flex-1 flex items-center justify-center gap-8 md:flex ${menuOpen ? "block" : "hidden"} md:block`}>
-          <Link href="/pages/nav/products" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/products" className=" hover:text-accent transition duration-300">
             Collection
           </Link>
-          <Link href="/pages/nav/sale" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/sale" className=" hover:text-accent transition duration-300">
             Sale
           </Link>
-          <Link href="/pages/nav/about" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/about" className=" hover:text-accent transition duration-300">
             About
           </Link>
         </nav>
@@ -42,18 +42,18 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="border border-gray-300 rounded-md py-1 px-4 focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm"
+              className="bg-background border border-accent rounded-md py-1 px-4 focus:outline-none placeholder:text-primary focus:placeholder:text-text transition duration-300 focus:ring-1 focus:ring-accent text-sm"
             />
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4  absolute right-3 top-1/2 transform -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <Link href="/pages/nav/cart" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/cart" className=" hover:text-accent transition duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
             </svg>
           </Link>
-          <Link href="/pages/nav/wishlist" className="text-gray-600 hover:text-gray-800 transition duration-300">
+          <Link href="/pages/nav/wishlist" className=" hover:text-accent transition duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                  stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round"
@@ -64,11 +64,11 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <button
                     onClick={handleLogout}
-                    className="text-sm text-gray-600 hover:text-gray-800 transition duration-300"
+                    className="text-p  hover:text-accent transition duration-300"
                 >
                   Logout
                 </button>
-                <Link href="/pages/nav/profile" className="text-gray-600 hover:text-gray-800 transition duration-300">
+                <Link href="/pages/nav/profile" className=" hover:text-accent transition duration-300">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                        stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -77,10 +77,10 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="flex items-center gap-4">
-              <Link href="/pages/auth/login" className="text-sm text-gray-600 hover:text-gray-800 transition duration-300">
+              <Link href="/pages/auth/login" className="text-p hover:text-accent transition duration-300">
                 Login
               </Link>
-              <Link href="/pages/auth/register" className="text-sm text-gray-600 hover:text-gray-800 transition duration-300">
+              <Link href="/pages/auth/register" className="text-p hover:text-accent transition duration-300">
                 Register
               </Link>
             </div>

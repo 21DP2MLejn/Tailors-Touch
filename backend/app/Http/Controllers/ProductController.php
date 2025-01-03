@@ -8,15 +8,35 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     // Fetch all products
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $query = Product::query();
+
+        if ($request->has('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->has('minPrice')) {
+            $query->where('price', '>=', $request->minPrice);
+        }
+
+        if ($request->has('maxPrice')) {
+            $query->where('price', '<=', $request->maxPrice);
+        }
+
+        if ($request->has('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $products = $query->get();
 
         return response()->json([
             'status' => true,
-            'message' => 'Products fetched successfully.',
-            'data' => $products,
-        ], 200);
+            'data' => $products
+        ]);
     }
 
     // Create a new product
@@ -25,17 +45,17 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'category' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $data = $request->all();
 
-        // Handle file upload
+
         if ($request->hasFile('image')) {
-            // Store the image and generate its URL
             $imagePath = $request->file('image')->store('products', 'public');
-            $data['image'] = asset('storage/' . $imagePath);  // Use asset() to get the full URL
+            $data['image'] = asset('storage/' . $imagePath);
         }
 
         $product = Product::create($data);
@@ -47,7 +67,7 @@ class ProductController extends Controller
         ], 201);
     }
 
-    // Fetch a single product
+
     public function show($id)
     {
         $product = Product::find($id);
@@ -75,6 +95,7 @@ public function update(Request $request, $id)
             $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'price' => 'sometimes|numeric|min:0',
+                'category' => 'sometimes|string',
                 'description' => 'sometimes|string',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             ]);

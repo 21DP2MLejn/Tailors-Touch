@@ -33,7 +33,7 @@ export default function CartPage() {
       });
       if (response.data && Array.isArray(response.data.data)) {
         setCartItems(response.data.data);
-        setError(null); // Clear any previous error
+        setError(null);
       } else {
         throw new Error("Invalid response format");
       }
@@ -75,17 +75,17 @@ export default function CartPage() {
   };
 
   const total = cartItems.reduce((sum, item) => {
-    const itemPrice = item?.price || 0; // Default to 0 if price is undefined
+    const itemPrice = item?.price || 0;
     return sum + itemPrice * (item.quantity || 1);
   }, 0);
 
   if (cartItems.length === 0 && !error) {
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen">
           <Navbar />
           <div className="container mx-auto py-16 px-4">
-            <h1 className="text-3xl font-light mb-8 text-gray-800">Shopping Cart</h1>
-            <p className="text-gray-600">Your cart is empty.</p>
+            <h1 className="text-h1 font-light mb-8 ">Shopping Cart</h1>
+            <p className="">Your cart is empty.</p>
           </div>
           <Footer />
         </div>
@@ -93,35 +93,38 @@ export default function CartPage() {
   }
 
   return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen">
         <Navbar />
         <div className="container mx-auto py-16 px-4">
-          <h1 className="text-3xl font-light mb-8 text-gray-800">Shopping Cart</h1>
+          <h1 className="text-h1 font-light mb-8 ">Shopping Cart</h1>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <div className="space-y-8">
             {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center space-x-4 border-b border-gray-200 pb-4">
+                <div key={item.id} className="flex items-center space-x-4 border-b border-accent pb-4">
                   <Image
                       src={item.image || "/placeholder.svg"}
                       alt={`${item.name || "Product"} image`}
-                      className="w-24 h-24 object-cover"
+                      width={100}
+                      height={100}
+                      className="w-24 h-24 object-cover border border-secondary"
+
                   />
                   <div className="flex-grow">
-                    <h2 className="text-lg font-light text-gray-800">{item.name || "Unknown Product"}</h2>
-                    <p className="text-gray-600">${(Math.round(item.price * 100) / 100).toFixed(2)}</p>
+                    <h3 className="text-h3 font-light">{item.name || "Unknown Product"}</h3>
+                    <p className="text-p">${(Math.round(item.price * 100) / 100).toFixed(2)}</p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <button
                         onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                        className="text-gray-500 hover:text-gray-700"
+                        className=" hover:text-secondary mx-2"
                         aria-label={`Decrease quantity of ${item.name}`}
                     >
                       -
                     </button>
-                    <span className="text-gray-800">{item.quantity}</span>
+                    <span className="text-button mx-2">{item.quantity}</span>
                     <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="text-gray-500 hover:text-gray-700"
+                        className=" hover:text-secondary mx-2"
                         aria-label={`Increase quantity of ${item.name}`}
                     >
                       +
@@ -137,14 +140,14 @@ export default function CartPage() {
                 </div>
             ))}
             <div className="flex justify-between items-center pt-4">
-              <span className="text-xl font-light text-gray-800">Total: ${total.toFixed(2)}</span>
-              <button className="bg-gray-900 text-white py-2 px-6 hover:bg-gray-800 transition duration-300">
+              <span className="text-xl font-light ">Total: ${total.toFixed(2)}</span>
+              <button className="bg-primary border border-secondary py-2 px-6 hover:bg-accent transition duration-300">
                 Proceed to Checkout
               </button>
             </div>
           </div>
           <div className="mt-8">
-            <Link href="/pages/nav/products" className="text-gray-600 hover:text-gray-800 transition duration-300">
+            <Link href="/pages/nav/products" className=" hover:text-primary transition duration-300">
               ← Continue Shopping
             </Link>
           </div>

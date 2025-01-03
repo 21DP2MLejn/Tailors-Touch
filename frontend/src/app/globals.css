@@ -3,11 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
+:root {
+  --primary: #8E7B68;
+  --secondary: #C5A1A0;
+  --accent: #FDF8F4;
+  --background: #F5EFE6;
+  --text: #3D2C28;
+}
 
 body {
   font-family: 'Lexend', sans-serif;
   scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 @layer base {
