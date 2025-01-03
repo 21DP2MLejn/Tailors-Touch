@@ -10,13 +10,15 @@ type UserData = {
     name: string;
     lastname: string;
     email: string;
+    phone: string;
     address: string;
     postalcode: string;
     city: string;
     country: string;
-    phone: string;
     is_admin: boolean;
 };
+
+
 
 export default function Profile() {
     const [userData, setUserData] = useState<UserData | null>(null);
@@ -112,37 +114,47 @@ export default function Profile() {
     };
 
     if (loading) {
-        return <p>Loading your profile...</p>;
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-h3 font-light ">Loading your profile...</p>
+            </div>
+        )
     }
 
     if (error) {
-        return <p className="text-red-500 bg-slate-50">Error: {error}</p>;
+        return(
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-red-500 bg-slate-50">Error: {error}</p>;
+            </div>
+        )
     }
 
     if (!userData) {
-        return <p>No user data available.</p>;
+        return(
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-red-500 bg-slate-50">No user data available</p>
+            </div>
+        )
     }
 
     return (
         <>
             <Navbar />
-            <main className="min-h-screen py-10 px-4 bg-slate-50">
-                <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-                    {loading && <p>Loading your profile...</p>}
+            <main className="min-h-screen py-10 px-4">
+                <div className="max-w-4xl mx-auto border border-secondary shadow-lg rounded-lg p-6">
                     {error && <p className="text-red-500">Error: {error}</p>}
                     {!loading && !error && userData && (
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-800">
+                            <h1 className="text-h1 font-light">
                                 Welcome, {userData.name} {userData.lastname}!
                             </h1>
-                            <p className="text-gray-600 mt-2">Email: {userData.email}</p>
-
-                            <h2 className="text-xl font-semibold text-gray-800 mt-6">Your Profile Details</h2>
+                            <p className=" mt-2">Email: {userData.email}</p>
+                            <h2 className="text-h2 font-light mt-6">Your Profile Details</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 {Object.entries(userData).map(([key, value]) => (
                                     key !== "is_admin" && (
-                                        <div key={key} className="p-4 border rounded-lg">
-                                            <h3 className="font-medium text-gray-700 capitalize">{key.replace('_', ' ')}</h3>
+                                        <div key={key} className="p-4 border border-secondary rounded-lg">
+                                            <h3 className="font-medium  capitalize">{key.replace('_', ' ')}</h3>
                                             {isEditing ? (
                                                 <input
                                                     type="text"
@@ -152,7 +164,7 @@ export default function Profile() {
                                                     className="mt-1 w-full px-2 py-1 border rounded"
                                                 />
                                             ) : (
-                                                <p>{value}</p>
+                                                <p>{value === null || value === undefined ? "Not provided" : value}</p>
                                             )}
                                         </div>
                                     )
@@ -167,31 +179,8 @@ export default function Profile() {
                                     </Link>
                                 </div>
                             )}
-                            {!userData.is_admin && (
-                                <div className="mt-6">
-                                    <h1 className="text-xl font-semibold text-gray-800">Your Shipping details</h1>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                                        <div className="p-4 border rounded-lg">
-                                            <h3 className="font-medium text-gray-700">Country</h3>
-                                            <p>{userData.country}</p>
-                                        </div>
-                                        <div className="p-4 border rounded-lg">
-                                            <h3 className="font-medium text-gray-700">City</h3>
-                                            <p>{userData.city}</p>
-                                        </div>
-                                        <div className="p-4 border rounded-lg">
-                                            <h3 className="font-medium text-gray-700">Address</h3>
-                                            <p>{userData.address}</p>
-                                        </div>
-                                        <div className="p-4 border rounded-lg">
-                                            <h3 className="font-medium text-gray-700">Postal Code</h3>
-                                            <p>{userData.postalcode}</p>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <h1 className="text-xl font-semibold text-gray-800"> Your Orders</h1>
-                                </div>
-                            )}
+                            <br/>
+                            <h1 className="text-h1 font-light"> Your Orders</h1>
                             <br />
                             {!userData.is_admin && (
                                 <>

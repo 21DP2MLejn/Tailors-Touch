@@ -21,6 +21,11 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->boolean('is_admin')->default(false);
+            $table->string('country')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postalcode')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -47,6 +52,6 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
-        
+
     }
 };
